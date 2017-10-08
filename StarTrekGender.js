@@ -1,41 +1,39 @@
-// two libraries used: request and cheerio
+var request = require("request");
+var cheerio = require("cheerio");
 
-var request = require('request'),
-cheerio = require('cheerio'),
-pageURL = 'http://chakoteya.net/StarTrek/6.htm';
-
-
-request(pageURL, function (error, response, body) {
-  if (error || response.statusCode !== 200) {
-  console.log('Code Red');
-  }
-
- else {
-    $ = cheerio.load(body);
-    // load page into cheerio
-
-    var meta = $("meta[http-equiv='keywords']").attr("content");
-    // turned keywords meta attribute into string
-
-    //console.log(meta);
-    var arr = new Array();
-    arr = meta.split(', ');
-    console.log(arr);
-    }
-
-  });
-
-// episode loop code
-// needs to be turned into a function
-// so that I can combine it with the code above
-
-
-var baseURL = 'http://chakoteya.net/StarTrek/',
+var baseURL = 'http://chakoteya.net/StarTrek/', // change Star Trek to variable
 htm = '.htm',
-episodeURL,
-episodeNumber;
+episodeArr = [];
 
-for (episodeNumber = 1; episodeNumber <= 79; episodeNumber++) {
-   var episodeName = baseURL + episodeNumber + htm;
-   console.log(episodeName);
-   };
+// created an array of episode URLs from Star Trek TOS
+for (let episodeNumber = 1; episodeNumber <= 79; episodeNumber++) {
+        var episodeName = baseURL + episodeNumber + htm;
+        episodeArr.push(episodeName);
+};
+
+//created function requestEpisodeURL
+function requestEpisodeURL(_, episodeNumber) {
+    request(episodeArr[episodeNumber], function (error, response, body) {
+        if (error || response.statusCode !== 200) {
+            console.log('Code Red');
+        } else {
+
+        // load page into cheerio
+        $ = cheerio.load(body);
+
+        // turned keywords meta attribute into string
+        var meta = $("meta[http-equiv='keywords']").attr("content");
+
+        var arr = new Array();
+        arr = meta.split(', ');
+        console.log(arr);
+
+        // because arrays start at 0 for the correct number I need add 1 for the actual number
+        var episodeNumberActual = episodeNumber + 1;
+        console.log(episodeNumberActual);
+    }
+ }
+)};
+
+episodeArr.forEach(requestEpisodeURL); //fix request body
+// eventually turn this into .map
