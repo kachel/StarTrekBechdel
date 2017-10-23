@@ -1,0 +1,29 @@
+{
+  "name": "star-trek-bechdel",
+  "version": "0.0.1",
+  "description": "star trek gender data analysis ",
+  "main": "StarTrekGender.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scrptktty/StarTrekBechdel.git"
+  },
+  "keywords": [
+    "star-trek",
+    "bechdel",
+    "parsing",
+    "scraping"
+  ],
+  "author": "Kachel Wittig <kjwittig@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scrptktty/StarTrekBechdel/issues"
+  },
+  "homepage": "https://github.com/scrptktty/StarTrekBechdel#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "request": "^2.83.0"
+  }
+}

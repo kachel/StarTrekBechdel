@@ -15,7 +15,10 @@ TOS will have the least.
 ## Process
 
 - Data Scraping script websites + [Star Trek API](stapi.co)
+  HTML to JSON of each scene
+  Maybe there is a screenplay parser that I could use?
 - Data Analysis (trying to avoid NLP)
+  why I need this stage:
 - Data Visualization (using D3)
 
 ## This is my first ever programming project

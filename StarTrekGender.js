@@ -1,39 +1,40 @@
-var request = require("request");
-var cheerio = require("cheerio");
+const request = require("request"),
+      cheerio = require("cheerio");
 
-var baseURL = 'http://chakoteya.net/StarTrek/', // change Star Trek to variable
-htm = '.htm',
-episodeArr = [];
+const baseURL = 'http://chakoteya.net/StarTrek/', // change Star Trek to variable
+      episodes = [];
 
 // created an array of episode URLs from Star Trek TOS
-for (let episodeNumber = 1; episodeNumber <= 79; episodeNumber++) {
-        var episodeName = baseURL + episodeNumber + htm;
-        episodeArr.push(episodeName);
-};
+for (let episodeNumber = 1; episodeNumber <= 79; episodeNumber++)
+  episodes.push(baseURL + episodeNumber + '.htm');
 
-//created function requestEpisodeURL
-function requestEpisodeURL(_, episodeNumber) {
-    request(episodeArr[episodeNumber], function (error, response, body) {
+// .forEach callback signature needed two parameters
+const requestEpisodeURL = function(_, episodeNumber) {
+
+    const handleEpisodeResponse = function (error, response, body) {
         if (error || response.statusCode !== 200) {
-            console.log('Code Red');
+            console.log('Red alert! Response code: ' + response.statusCode);
         } else {
+
+        //the episode object
+        const it = {};
 
         // load page into cheerio
         $ = cheerio.load(body);
 
         // turned keywords meta attribute into string
-        var meta = $("meta[http-equiv='keywords']").attr("content");
+        const keywordsText = $("meta[http-equiv='keywords']").attr("content");
 
-        var arr = new Array();
-        arr = meta.split(', ');
-        console.log(arr);
+        const keywords = [];
+        keywords = keywordsText.split(', ');
+        console.log(keywords);
 
-        // because arrays start at 0 for the correct number I need add 1 for the actual number
-        var episodeNumberActual = episodeNumber + 1;
-        console.log(episodeNumberActual);
-    }
- }
+        }
+    }; // handleEpisodeResponse()
+
+    request(episodes[episodeNumber], handleEpisodeResponse);
 )};
 
-episodeArr.forEach(requestEpisodeURL); //fix request body
+
+episodes.forEach(requestEpisodeURL); //fix request body
 // eventually turn this into .map
