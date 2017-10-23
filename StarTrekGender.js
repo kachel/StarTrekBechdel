@@ -33,7 +33,7 @@ const requestEpisodeURL = function(_, episodeNumber) {
     }; // handleEpisodeResponse()
 
     request(episodes[episodeNumber], handleEpisodeResponse);
-)};
+};
 
 
 episodes.forEach(requestEpisodeURL); //fix request body
