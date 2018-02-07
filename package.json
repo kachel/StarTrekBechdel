@@ -25,6 +25,8 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "eslint": "^4.9.0",
+    "fetch": "^1.1.0",
+    "node-fetch": "^1.7.3",
     "request": "^2.83.0"
   },
   "devDependencies": {
